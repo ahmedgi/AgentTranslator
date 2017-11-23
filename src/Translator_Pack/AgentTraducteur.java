@@ -35,21 +35,19 @@ public class AgentTraducteur extends Agent{
 				MessageTemplate mt =MessageTemplate. MatchPerformative(ACLMessage.CFP);
 				ACLMessage msg = myAgent.receive( mt ) ;
 				if ( msg != null ) {
-					String mot = msg .getContent();
+					String mot = msg .getContent().trim();
 					ACLMessage reponse = msg.createReply( ) ;
 					String restext =(String) catalogue.get(mot) ;
-					if (restext !=null) {
-						// Le L i v r e e s t d i s p o n i b l e . Ré p o n d r e a v e c l e p r i x
+					if (restext !=null) {		
 						reponse. setPerformative( ACLMessage.INFORM);
 						reponse.setContent(restext) ;
 						reponse.setConversationId("traducteur");
-						myAgent.send(reponse);
+						//myAgent.send(reponse);
 						System.out.println("sendinnnnnng response "+restext);
-					}
-					else {
-						// l i v r e non d i s p o n i b l e à l a v e n t e , r é p o n d r e un r e f u s
-						reponse .setPerformative(ACLMessage . REFUSE ) ;
-						reponse.setContent("indisponible") ;
+						msg=null;
+					}else {
+						reponse .setPerformative(ACLMessage.REFUSE ) ;
+						reponse.setContent("?") ;
 					}
 					myAgent.send(reponse);
 					msg=null;
@@ -65,7 +63,7 @@ public class AgentTraducteur extends Agent{
 		addBehaviour( new OneShotBehaviour( ) {
 		public void action () {
 		catalogue.put(eng,alm);
-		System.out. println("le mot :"+eng+" est inseré au catalogue. almand= "+alm ) ;
+		System.out. println("le mot :"+eng+" est inseré au catalogue. alemand= "+alm ) ;
 		} } );
 	}
 	public void tkeDown(){

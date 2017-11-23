@@ -9,16 +9,23 @@ import java.awt.Event.*;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import Client_pack.AgentDemandeur;
 
 import java.awt.Color;
+import javax.swing.DropMode;
 
 public class AgentGui {
 
@@ -61,10 +68,16 @@ public class AgentGui {
 		textField.setColumns(10);
 		
 		TextAfiche = new JTextArea();
-		TextAfiche.setLineWrap(true);
+		TextAfiche.setLocation(10, 10);
+		TextAfiche.setSize(426, 217);
 		TextAfiche.setEditable(false);
-		TextAfiche.setBounds(12, 12, 426, 217);
-		frame.getContentPane().add(TextAfiche);
+		JScrollPane scroll = new JScrollPane(TextAfiche);
+		//scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS );
+		scroll.setLocation(12, 12);
+		scroll.setSize(420, 220);
+		//TextAfiche.setBounds(12, 12, 426, 217);
+		TextAfiche.setPreferredSize(new Dimension(426,217));
+		frame.getContentPane().add(scroll);
 		Envpoye.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mot=textField.getText().trim();
@@ -75,13 +88,19 @@ public class AgentGui {
 				
 			}
 		});
+		// Make the agent terminate when the user closes 
+		// the GUI using the button on the upper right corner	
+		frame.addWindowListener(new	WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				myAgent.doDelete();
+			}
+		} );
 	}
 	public void updateTextArea(String text,String name){;
 		TextAfiche.append(name +" : "+text+"\n");
 		//frame.revalidate();
-		frame.repaint();
-
-		System.out.println("hello update text");
+		//frame.repaint();
+		System.out.println("update text");
 	}
 	public void affiche() {
 		EventQueue.invokeLater(new Runnable() {
