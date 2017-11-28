@@ -66,7 +66,7 @@ public class AgentDemandeur extends Agent{
 				if(reponse !=null){
 					if(reponse.getPerformative()==ACLMessage.INFORM) {
 						rep=(String)reponse.getContent().trim();
-						Gui.updateTextArea(rep,this.getAgent().getLocalName());
+						Gui.updateTextArea(rep,reponse.getSender().getLocalName());
 						System.out.println("response receiveddddddd "+rep);
 						}
 					if(reponse.getPerformative()==ACLMessage.REFUSE){
