@@ -2,6 +2,8 @@ package Graphic;
 
 import java.awt.Dimension;
 import jade.core.AID;
+
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -69,14 +71,9 @@ public class AgentGui {
 		
 		TextAfiche = new JTextArea();
 		TextAfiche.setLocation(10, 10);
-		TextAfiche.setSize(426, 217);
 		TextAfiche.setEditable(false);
 		JScrollPane scroll = new JScrollPane(TextAfiche);
-		//scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS );
-		scroll.setLocation(12, 12);
-		scroll.setSize(420, 220);
-		//TextAfiche.setBounds(12, 12, 426, 217);
-		TextAfiche.setPreferredSize(new Dimension(426,217));
+		scroll.setBounds(12, 12, 426, 217);
 		frame.getContentPane().add(scroll);
 		Envpoye.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
